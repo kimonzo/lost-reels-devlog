@@ -1,0 +1,57 @@
+{
+  "intro": "Frames from Lost Reels as it runs: the cinema, the bus, the Editing Studio and the forest between them, the crew and the Splicer. Only the key art section is retouched.",
+  "groups": [
+    {"id": "in-game", "title": "In-game screenshots", "note": "Captured in the game (Unreal Engine 5.9), no paint-overs.", "items": [
+      {"file": "01-splicer-flashlight-beam", "src": "docs/jam/submission/screenshots/01_splicer_in_the_flashlight_beam.png", "caption": "The Splicer waits at the end of a studio corridor, caught in the flashlight beam."},
+      {"file": "02-splicer-flashlight-close", "src": "@raw/s4/HighresScreenshot00000.png", "caption": "Closer. The Splicer stands still while the light is on it."},
+      {"file": "03-camcorder-records-splicer", "src": "@raw/s2/HighresScreenshot00000.png", "caption": "The camcorder's LCD records what the crew sees: here, the Splicer in a doorway."},
+      {"file": "04-crew-at-dusk", "src": "docs/jam/submission/screenshots/02_crew_with_flashlights_at_dusk.png", "caption": "Two of the crew head into the forest at dusk, flashlights on."},
+      {"file": "05-campfire-crew", "src": "@raw/s4/HighresScreenshot00004.png", "caption": "The crew around the campfire."},
+      {"file": "06-crew-in-the-fog", "src": "@raw/s3/HighresScreenshot00005.png", "caption": "Night fog at the camp: silhouettes, a lantern and a folding chair."},
+      {"file": "07-cinema-at-dusk", "src": "@raw/s4/HighresScreenshot00001.png", "caption": "The cinema at dusk, its projector beam pointing up into the sky."},
+      {"file": "08-cinema-in-the-fog", "src": "@raw/s4/HighresScreenshot00002.png", "caption": "The cinema from above, wrapped in fog."},
+      {"file": "09-cinema-day", "src": "production/qa/evidence/map-lighting-233/after-day-cinema.jpg", "caption": "The cinema by day: hazy sun, dark pines and the beam that guides everyone home."},
+      {"file": "10-rooftop-letters-fog", "src": "@raw/s3/HighresScreenshot00003.png", "caption": "EDITING STUDIO letters on the roof, a street lamp in the fog and something under the tree."},
+      {"file": "11-rooftop-letters-road", "src": "production/qa/evidence/rooftop-letters/day-road-near.png", "caption": "The road past the Editing Studio and its rooftop letters."},
+      {"file": "12-road-to-clearing", "src": "production/qa/evidence/rooftop-letters/day-road-to-clearing.png", "caption": "The road to the clearing, autumn trees on both sides."},
+      {"file": "13-forest-road-bus", "src": "production/qa/evidence/wind-252/road_north_t2.0s.png", "caption": "The north road and the crew bus. Trees and grass sway in the wind."},
+      {"file": "14-duck-bush", "src": "production/qa/evidence/duck-twigs/18z_duck_bush_bus_close.png", "caption": "The duck bush: rubber ducks on bare twigs, a small joke near the bus."},
+      {"file": "15-bus-monitor-teammate", "src": "docs/jam/submission/screenshots/03_bus_monitor_teammate_camera.png", "caption": "The bus monitor shows a teammate's camera; the dial phone switches between feeds."},
+      {"file": "16-bus-crt", "src": "production/qa/evidence/bus-tv-on-model/before-01.png", "caption": "The CRT in the bus, the phone and the camcorder: the crew's base between runs."},
+      {"file": "17-camcorder-lcd-cinema", "src": "production/qa/evidence/camcorder-lcd-live/01-cinema-held-lowered-live-lcd.png", "caption": "The camcorder held low in the cinema; its LCD keeps showing the live picture."},
+      {"file": "18-camcorder-lcd-bus", "src": "production/qa/evidence/camcorder-lcd-live/02-bus-day-held-lowered-live-colour.png", "caption": "Inside the bus by day, the camcorder LCD in colour."},
+      {"file": "19-siren", "src": "docs/jam/submission/screenshots/04_siren_back_to_the_cinema.png", "caption": "The siren: two minutes of daylight left, everyone back to the cinema."},
+      {"file": "20-projector-reel-batteries", "src": "docs/jam/submission/screenshots/05_projector_reel_and_batteries.png", "caption": "The projector in the cinema, waiting for reels and batteries."},
+      {"file": "21-reel-rack", "src": "production/qa/evidence/reel-rack-113/rack_3_reels_booth.png", "caption": "Three reels delivered: the rack next to the projector fills up."},
+      {"file": "22-held-flashlight", "src": "production/qa/evidence/held-items/held-flashlight-side.png", "caption": "A crew member with a flashlight in the cinema lobby."},
+      {"file": "23-held-trumpet", "src": "production/qa/evidence/held-items/held-trumpet-blow-side.png", "caption": "The trumpet makes noise on purpose, to pull the Splicer away from the others."},
+      {"file": "24-walkie-talkie", "src": "production/qa/evidence/walkie-talk/walkie-teammate-flashlight-talk.png", "caption": "Talking on the walkie-talkie, flashlight in the other hand."},
+      {"file": "25-crew-line-up", "src": "production/qa/evidence/bubus-crew/crew-jackets.png", "caption": "The crew line-up in the cinema: one jacket per player."},
+      {"file": "26-crew-run", "src": "production/qa/evidence/bubus-crew/crew-run.png", "caption": "Running past the projector."},
+      {"file": "27-studio-door", "src": "production/qa/evidence/final-1511/studio-door-bubus-leaf-320cm.png", "caption": "The padded red door of the Editing Studio."},
+      {"file": "28-inner-doors-coop", "src": "production/qa/evidence/doors-coop-243/day-opened-by-host-host-outside.png", "caption": "The cinema's inner doors, opened by a teammate."},
+      {"file": "29-doors-open-day3", "src": "production/qa/evidence/doors-lastday-257/day3-day-after-E-inside-doors-open.png", "caption": "Day 3: the doors open onto the street and the forest."},
+      {"file": "30-studio-monster-night", "src": "production/qa/evidence/studio-doors-240/06-monster-outside-at-night.png", "caption": "At night the Splicer waits outside the studio."},
+      {"file": "31-studio-mustard-room", "src": "production/qa/evidence/studio-paint-doors/03-paint-mustard-room.png", "caption": "A mustard-painted studio room with props and a mannequin."},
+      {"file": "32-studio-mint-flashlight", "src": "production/qa/evidence/studio-paint-doors/06-lit-faded-mint-room-flashlight.png", "caption": "A faded mint room, lit only by the flashlight."},
+      {"file": "33-mixing-desk-memo", "src": "production/qa/evidence/note-visuals-245/studio-mixing-desk-memo-and-making-of-unlit.jpg", "caption": "Notes left on a studio mixing desk: a memo and a Making Of card."},
+      {"file": "34-found-notes-reader", "src": "production/qa/evidence/notes-journal/notes-journal-reader-en.png", "caption": "The Found Notes journal: a diary page from the crew's story."},
+      {"file": "35-main-menu", "src": "production/qa/evidence/main-menu-extras/main-menu-found-notes-credits-en.png", "caption": "The main menu: Play, Extras, Found Notes, Credits."},
+      {"file": "36-cut-screen", "src": "production/qa/evidence/feat-204/05-loss-cut-ending.png", "caption": "CUT! The run is over, and the cinema screen says so."},
+      {"file": "37-splicer-catch", "src": "production/qa/evidence/monster-anims-v2/catch-lift-front.png", "caption": "The Splicer's catch pose."}
+    ]},
+    {"id": "key-art", "title": "Key art", "badge": "AI-enhanced key art, not gameplay", "note": "In-game frames repainted with AI image tools for the jam page and thumbnails. They show the mood, not what the game looks like on screen.", "items": [
+      {"file": "ka-01-splicer-in-the-flashlight", "src": "docs/jam/submission/keyart/01_splicer_in_the_flashlight.png", "caption": "The Splicer in the flashlight. AI-enhanced key art, not gameplay."},
+      {"file": "ka-02-splicer-at-the-editing-studio", "src": "docs/jam/submission/keyart/02_splicer_at_the_editing_studio.png", "caption": "The Splicer at the Editing Studio. AI-enhanced key art, not gameplay."},
+      {"file": "ka-03-crew-at-the-campfire", "src": "docs/jam/submission/keyart/03_crew_at_the_campfire.png", "caption": "The crew at the campfire. AI-enhanced key art, not gameplay."},
+      {"file": "ka-04-cinema-in-the-fog", "src": "docs/jam/submission/keyart/04_cinema_in_the_fog.png", "caption": "The cinema in the fog. AI-enhanced key art, not gameplay."},
+      {"file": "ka-05-crew-at-dusk", "src": "docs/jam/submission/keyart/05_crew_at_dusk.png", "caption": "The crew at dusk. AI-enhanced key art, not gameplay."}
+    ]},
+    {"id": "behind-the-scenes", "title": "Behind the scenes", "note": "Work in progress: a blockout, a model preview, poster drafts and a reel film.", "items": [
+      {"file": "bts-01-blockout-overview", "src": "production/qa/evidence/world-1311/00_overview.png", "caption": "The map blockout on day 2, before lighting and materials."},
+      {"file": "bts-02-duck-bush-blender", "src": "production/qa/evidence/duck-twigs/blender_preview_iso.png", "caption": "The duck bush in a Blender preview."},
+      {"file": "bts-03-day-poster-options", "src": "production/qa/evidence/day-poster-art/options.png", "caption": "Four drafts of the cinema's day poster."},
+      {"file": "bts-04-reel-film", "src": "production/qa/evidence/longer-reel-films/reel_03.png", "caption": "Frames from one of the black-and-white reel films (AI-generated clips, shown in the game)."}
+    ]}
+  ]
+}
