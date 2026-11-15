@@ -335,6 +335,7 @@ Day three is strict again. What you lose, you lose. Go and get it back.
 - 12:20–15:30 (Sunday) — [rc-1511a, a playtest list, a traffic jam of compilers, rc-1511b](#12201530-sunday--rc-1511a-a-playtest-list-a-traffic-jam-of-compilers-rc-1511b)
 - 09:17–13:49 — [Team call: playing rc-1311j and rc-1511a](#team-call-09171349-3-people-272-min--playing-rc-1311j-and-rc-1511a)
 - 13:58–16:44 — [Team call: the last tests and rc-1511b](#team-call-13581644-3-people-166-min--the-last-tests-and-rc-1511b)
+- 17:33–20:57 — [Team call: the beta, the credits and sending it off](#team-call-17332057-3-people-204-min--the-beta-the-credits-and-sending-it-off)
 - 15:30–18:30 (Sunday) — [beta, one more round, and the release build](#15301830-sunday--beta-one-more-round-and-the-release-build)
 
 ## Decision log
@@ -439,6 +440,9 @@ Every decision in one line, oldest first. The "how" column is the part a directo
 | 15 Nov, 13:41 | The monster gets a real name instead of "Take 14" (The Splicer, #277) | kimonzo asked during the rc-1511a playtest | [Team call 09:17](#team-call-09171349-3-people-272-min--playing-rc-1311j-and-rc-1511a) |
 | 15 Nov, 15:41 | Players all look the same for the jam; Bubuś makes separate player textures later | Bubuś, after the half-body colour tint looked odd in co-op | [Team call 13:58](#team-call-13581644-3-people-166-min--the-last-tests-and-rc-1511b) |
 | 15 Nov, 15:43 | A cinema poster shows what lies in today's studio (#287) | The compromise after Badys argued that one reel and maybe one battery a day leaves players searching for loot that is not there | [Team call 13:58](#team-call-13581644-3-people-166-min--the-last-tests-and-rc-1511b) |
+| 15 Nov, 19:10 | The trailer keeps the new cut, minus the shake | Bubuś preferred the old one and then left it to kimonzo: a trailer has to show the game as it looks now | [Team call 17:33](#team-call-17332057-3-people-204-min--the-beta-the-credits-and-sending-it-off) |
+| 15 Nov, 19:45 | The credits keep their joke roles; only the bush with ducks is added to kimonzo's line | Bubuś wanted plain one-word roles; kimonzo and Badys liked the jokes, and Badys called the vote | [Team call 17:33](#team-call-17332057-3-people-204-min--the-beta-the-credits-and-sending-it-off) |
+| 15 Nov, 19:47 | The Polish final card reads "Co byś zrobił?" (in release-1511d) | Badys, after reading the end screen in Polish during the playtest | [Team call 17:33](#team-call-17332057-3-people-204-min--the-beta-the-credits-and-sending-it-off) |
 
 ---
 
@@ -1924,6 +1928,84 @@ The recorder ran for 166 minutes, and nobody said anything for the first 26. The
 > "Our game has a point. Simple, playable and fun." — Bubuś, 15:22
 >
 > "I'm taking screenshots, seriously, look how pretty it is. I can't believe this took three days." — Badys, 15:38
+
+### Team call, 17:33–20:57 (3 people, 204 min) — the beta, the credits and sending it off
+
+
+The last call of the jam. It opened on the beta (`beta-1511`, out at 17:24) and the logging build, ran alongside four release builds (`release-1511` to `release-1511d`, the last one at 20:09), and ended with all three of us scrolling through the itch.io page and this dev log. Two long stretches went on other people's jam entries; we left those out of the transcript.
+
+| CET | Topic | What was said |
+|---|---|---|
+| 17:33–17:39 | The day poster | Badys could not find the new cinema day poster. The agent had placed it from map coordinates without looking at the hall. kimonzo: then put a sign in front of the cinema, where everyone sees it |
+| 17:39–17:42 | Scanner and camcorder | The scanner now shows the price on its own small screen, though on the wrong side. Badys: the camcorder's screen frame still sits over the painted screen, and Bubuś will have to do that one by hand |
+| 17:42–17:47 | Which build is which | GitHub listed the beta below older releases, so Bubuś and Badys first downloaded the wrong one. With 1 to 2 GB per build and slow connections, that hurt |
+| 17:47 | Battery count | Badys: the day card should say how many big batteries are out there |
+| 17:48–17:50 | Trees and the campfire | The trees sway on Epic. There is one campfire on the whole map, and lighting it flashes everything bright for a second |
+| 17:51–17:52 | Held items | kimonzo: the held props now get high-resolution textures; they had all been cut to 512. Bubuś: right call, but real optimisation has to be done by hand. The animations the AI made are fine |
+| 18:03 | Someone had a similar idea | kimonzo: another entry shares our premise, but ours is co-op extraction, not just filming. Bubuś: and we will build on it |
+| 18:30 | The bus TV | kimonzo: the TV gets the camcorder's fix, the picture drawn into the model's own screen (merged at 18:58, #300) |
+| 18:46–18:50 | Poster placement | On Badys's stream the poster looked off, and the HUD covered it. Badys and Bubuś: stand it in a corner or hang it on a wall (merged at 19:02, #301; the HUD now hides while a poster is open) |
+| 18:49 | Monster and doors | The Splicer got stuck on a door. Bubuś: turn off its collision with doors. kimonzo: a fix is on the way |
+| 18:51 | Release notes | Bubuś asked whether kimonzo reads the release notes the agents write. kimonzo said he has people for that |
+| 18:58 | Christmas | kimonzo: a Christmas version as DLC? |
+| 19:09–19:11 | Two trailers | Badys: one trailer cut shakes. Bubuś: the old one was fine and started better. kimonzo: the old one is the same in old graphics; he removes the shake and keeps the new one, since a trailer has to show the whole game. Bubuś: your call |
+| 19:12 | Size and accounts | kimonzo: the game may grow to about 5 GB. Badys sets up his own Meshy and Rodin accounts for after the jam |
+| 19:13–19:15 | Campfire in co-op | Bubuś lit the campfire while Badys stood inside a building. The glow did not reach inside |
+| 19:16 | Looking up and down | Badys could see the others turn left and right, but not look up or down |
+| 19:17 | Firewood | Badys: later, wood to chop with an axe, and a lumberjack boss |
+| 19:19 | Pop-in | At the end of a corridor Badys saw the studio and trees load late. Bubuś: Unreal culls what you do not look at |
+| 19:20–19:23 | A rescue | Bubuś's flashlight died under a table; Badys guided him out by sound and the camcorder screen. The camera shows "no signal" when the Splicer is close, which Badys liked. The battery looks huge in the hand |
+| 19:23–19:24 | The projector | The battery sits next to the projector instead of in its slot. Bubuś: leave it; he will remodel the projector and mark slots 1, 2 and 3 on a picture for the AI |
+| 19:26–19:29 | Fifteen minutes | kimonzo: a game of about fifteen minutes. Bubuś and Badys: only because we skip everything; more maps, days and bosses will make it days. A first-time player will get lost |
+| 19:29–19:32 | Two monsters | kimonzo: two monsters on day 3? Bubuś: two when four people play. Badys: the Splicer already speeds up every day |
+| 19:32–19:47 | The credits | The roll lists very specific roles (level and forest design, UI). Bubuś wanted general ones: graphics, animation, writing. Badys defended the forest, which he planted tree by tree. kimonzo was happy with jokes. Badys called a vote: keep it as it is, with jokes, and add the bush with ducks |
+| 19:42 | Found notes | kimonzo: the found notes and credits move to the main menu (merged at 19:57, #303) |
+| 19:47 | The last card | Badys: the final card should read "Co byś zrobił?" in Polish, and in English "What would you do?" rather than "What do you do?" |
+| 19:50–19:55 | Ideas on the bridge | Badys: a farm map with a farmer, a pitchfork and a cow; a mushroom picker with a knife. Bubuś: start with the lamps off, so someone has to switch each on. Jumping onto the bridge is hard |
+| 19:51 | Furniture | Badys: in the cinema you can escape the Splicer by jumping on furniture. Let it climb, or stop the player |
+| 19:53 | Settings | kimonzo: the flashlight still cannot be switched off. Bubuś: Medium is the most playable preset |
+| 20:00 | Contact | kimonzo: a contact address at the end of the credits? There is no Holy Trinity site. Badys: make one, and a Discord server if people catch on |
+| 20:02–20:03 | More notes | Bubuś and Badys want Making Of cards about the 134 pages of plan we read, and about Bubuś waking up with a game idea that already existed |
+| 20:04–20:05 | How far to go | Bubuś: five maps at most, then a new game. Badys: or five and DLC, with unlocks or cosmetics so finishing means something |
+| 20:07–20:08 | The form | The jam form has no horror genre. Bubuś joked that horror may be banned; Badys suggested survival or "other" |
+| 20:09–20:11 | The final build | `release-1511d`: the main menu changes, and the Polish final card reads "Co byś zrobił?". The English card stays "What do you do?" |
+| 20:26–20:27 | itch.io | kimonzo added Bubuś and Badys to the itch.io page as admins and contributors |
+| 20:27–20:31 | The dev log site | Badys and Bubuś read the site: the timeline links, the decision log, the prompts, the bloopers. Bubuś: his reference pictures are missing because he only ever sent them on Discord |
+| 20:31–20:33 | Screenshots | Bubuś: the oldest monster still shows on the itch page. He also spotted a concrete road in one marketing still; Badys: that road does not exist, the AI enhancement invented it, the real one is dirt |
+| 20:34–20:36 | Credits on itch | Bubuś: the AI keeps a record of whatever kimonzo does, while his hand-made work leaves no trace |
+| 20:51 | The film | Bubuś: we finally have the film. Badys: six hours left |
+
+**Decided:**
+- The credits stay as they are, jokes included. The bush with ducks still has to be added to kimonzo's line.
+- The Polish final card reads "Co byś zrobił?" (in `release-1511d`).
+- The day poster stands in the cinema corner behind the red end-day button, and the HUD hides while it is open (#301).
+- The bus TV gets the camcorder's fix (#300).
+- The found notes and the credits are in the main menu (#303).
+- The trailer keeps the new cut without the shake.
+- Bubuś and Badys are admins and contributors on the itch.io page.
+- The projector stays as it is for the jam. Bubuś remodels it later and marks the battery slots on a picture for the agents.
+
+**How:** we played the beta and the release builds together while kimonzo turned remarks into agent tasks. Four of them reached main during the call (#300, #301, #302, #303). The credits went to a vote: Bubuś wanted plain roles, kimonzo and Badys liked the jokes, and Badys called it. The trailer was kimonzo's call after Bubuś left it to him.
+**Rejected:**
+- General one-word roles in the credits (outvoted).
+- Going back to the old trailer: same scenes in older graphics.
+- Moving the projector battery slots now: Bubuś will redo the model anyway.
+
+**Owner:**
+- kimonzo: the last builds, the trailer, the jam form and the itch.io page.
+- Bubuś: the camcorder screen, the projector model and the held items, by hand, after the jam.
+- Badys: his own Meshy and Rodin accounts for after the jam.
+
+**New tasks and bugs from this call:**
+1. The campfire glow does not reach inside buildings.
+2. Other players are seen turning left and right, but not looking up or down (check).
+3. The Splicer gets stuck on doors (check).
+4. In the cinema, players escape the Splicer by standing on furniture.
+5. The flashlight cannot be switched off (check).
+6. The held battery looks oversized, with odd textures.
+7. The English final card still reads "What do you do?".
+8. One AI-enhanced marketing still shows a concrete road the game does not have.
+9. A new player does not know what to do on the first run.
 
 ### 15:30–18:30 (Sunday) — beta, one more round, and the release build
 
