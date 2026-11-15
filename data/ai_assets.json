@@ -1,0 +1,991 @@
+{
+ "intro": "Three people made the decisions; agents and generators did most of the making. Below is every group of AI-made assets in the game: which tool and model made it, what it is for, what it cost, the prompt we actually sent, and what came out wrong first. Open a prompt to read it word for word.",
+ "groups": [
+  {
+   "id": "claude-code",
+   "title": "Claude Code: the director's chair",
+   "what_for": "Claude Code agents wrote the C++ and tests, built levels through Unreal MCP, and drove every other generator below through MCP servers and REST APIs, writing a meta.json with prompts, seeds and costs next to each asset.",
+   "tools": "Claude Code (Anthropic) with Claude Code Game Studios (our MIT set of agents, skills and hooks), Unreal MCP in UE 5.9, MCP servers for Meshy, Hyper3D Rodin and Tripo, fal.ai and ElevenLabs over their APIs, headless Blender 5.3 and UE editor Python scripts",
+   "count": "Many parallel agents, each in its own git worktree; one integrator owned main. Examples from the dev log: six agents at once on Day 1, five more waves that night, nineteen issues on fourteen branches on Day 2, eleven read-only audit agents at once on Day 3; about 300 automated tests after Day 1, 605 of 605 green for rc-1311d.",
+   "cost": null,
+   "prompts": [
+    {
+     "label": "Day 1, from call notes to a plan (translated from Polish in the dev log)",
+     "text": "use the game-making skills from the studio, analyse Badys's notes and the call transcript"
+    },
+    {
+     "label": "Day 0, prompt of the night",
+     "text": "Check the prompt templates against each vendor's official documentation.\nWhere the docs say nothing, write that down instead of guessing."
+    },
+    {
+     "label": "Day 3, rules shared by all eleven audit agents (excerpt as printed in the dev log)",
+     "text": "READ-ONLY on D:\\gra: do not edit, commit, build or stash in the D:\\gra working tree (other agents use it). Do not ask questions.\nIf you need to run the editor/game or build, create your OWN worktree [...]\nOutput: ranked findings P0/P1/P2 with evidence (file:line, numbers, log lines, screenshot paths), one-line fix, size S/M/L."
+    }
+   ],
+   "went_wrong": "Two parallel test runs picked up each other's tests, so one agent's green result came from another agent's code (fixed with a unique -SessionId per run). Around 13:40 on Day 2 a group of agent sessions stopped at once on an authentication error; because every agent commits after each finished task, a restart cost at most the task in progress. A performance agent once switched ray tracing off for weak PCs, which would have cost us the NVIDIA RTX Award, so we turned it back on for RTX cards.",
+   "images": [],
+   "sources": [
+    "docs/tools-used.md",
+    "docs/devlog.md",
+    "CLAUDE.md"
+   ]
+  },
+  {
+   "id": "pickups",
+   "title": "Pickups: things you carry",
+   "what_for": "The items players pick up, carry, sell or throw: film reels, batteries, flashlight, camcorder, rubber duck, trumpet, scanner, book, watch, trophy, clapperboard, empty reel, walkie-talkie and flash camera.",
+   "tools": "Day 1: Meshy text to image (nano-banana-pro, gpt-image-2 for the reel) -> Meshy Image to 3D (meshy-t2.5 smart topology + meshy-7 PBR texture) or Hyper3D Rodin Gen-2.5-Medium. Day 3 batch (#228): fal-ai/nano-banana reference -> Meshy Image to 3D (meshy-t2 smart topology + meshy-n1 texture); Blender Decimate to 5k triangles",
+   "count": "15 item models with meta.json: 5 from Day 1 (large battery, flashlight, camcorder, reel, rubber duck) and 10 from the #228 batch",
+   "cost": "#228 batch: 150 Meshy credits and about 0.45 USD on fal. Day 1 items per meta.json: 114 Meshy credits (battery 33, flashlight 24, camcorder 18, reel 30, duck 9); Rodin credits not reported by the Rodin MCP.",
+   "prompts": [
+    {
+     "label": "SM_Trumpet (#228, shared style prefix + object, fal-ai/nano-banana)",
+     "text": "Product photo of one single object on a plain light-grey seamless background, soft even studio lighting, three-quarter view from slightly above, the whole object visible and centered with margin around it. A worn 1970s film-studio prop from a horror game, realistic PBR materials, subtle scratches, dust and patina. No text, no letters, no numbers, no logos, no brands, no people, no hands. The object: a brass trumpet with three piston valves, a flared bell, a mouthpiece and a tuning slide, tarnished brass with dark patina, lying on its side"
+    },
+    {
+     "label": "SM_Val_RubberDuck (Day 1, Meshy nano-banana-pro reference)",
+     "text": "A single classic rubber duck toy, a chubby bright yellow duck with an orange beak and tiny black eyes, glossy plastic seen from the front at a three-quarter angle, fully visible and centered, on a plain light grey background with soft, even studio lighting. Stylized semi-realistic 1960s film-set look, chunky readable shapes with visible volume and shading, hand-painted PBR textures with subtle wear, warm tungsten tones with faded teal and mustard accents, matte, slightly worn."
+    },
+    {
+     "label": "SM_Reel_Tape label fix (Meshy image-to-image, gpt-image-2)",
+     "text": "Keep the exact same film reel, angle, lighting and background, but make the mustard yellow label band completely plain and blank: remove every letter, number and word from the reel so the band is a clean worn mustard colour."
+    },
+    {
+     "label": "SM_Val_Clapperboard (#228)",
+     "text": "Product photo of one single object on a plain light-grey seamless background, soft even studio lighting, three-quarter view from slightly above, the whole object visible and centered with margin around it. A worn 1970s film-studio prop from a horror game, realistic PBR materials, subtle scratches, dust and patina. No text, no letters, no numbers, no logos, no brands, no people, no hands. The object: a film clapperboard slate standing upright: a black board with white chalk lines and completely empty fields, a hinged clapper stick on top with black and white diagonal stripes, slightly open, nothing written on it"
+    }
+   ],
+   "went_wrong": "The first camcorder picture had a real brand name on the body, so the prompt got 'plain smooth unmarked'; the reel picture from gpt-image-2 had the right shape but a real film-stock brand on the label, removed with an image-to-image edit. The large battery's verbatim spec prompt gave a wide box, and the clapperboard came out open, so Blender closed it.",
+   "images": [
+    {
+     "role": "reference",
+     "path": "Art/Source/Items/SM_Trumpet/ref_SM_Trumpet.png",
+     "caption": "fal nano-banana reference for the trumpet",
+     "size_kb": 1171
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/ai-models-items/pickup-Trumpet.png",
+     "caption": "the trumpet pickup in the game",
+     "size_kb": 748
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/ai-models-items/contact-sheet.png",
+     "caption": "all pickups on one sheet",
+     "size_kb": 1372
+    }
+   ],
+   "sources": [
+    "Art/Source/Items/*/meta.json",
+    "tools/ai/items_batch.py",
+    "docs/tools-used.md",
+    "design/assets/asset-manifest.md",
+    "production/qa/evidence/ai-models-items/README.md"
+   ]
+  },
+  {
+   "id": "studio-props-day1",
+   "title": "Studio furniture, first night",
+   "what_for": "The first furniture of the recording and editing studios: tape machines, moviola, mixing desk, mic stands, acoustic panels, the table you hide under, doors, vents, crates and more.",
+   "tools": "Meshy text to image (nano-banana-pro) -> Meshy Image to 3D (meshy-t2.5 smart topology + meshy-7 PBR texture); five hero pieces (moviola, tape machine, mixing desk, vocal booth, hide table) through Hyper3D Rodin Gen-2.5. All were planned for Tripo.",
+   "count": "26 models with meta.json (16 SM_Studio_* plus 10 SM_Prop_* from that night); the dev log counts 28 studio props for the night",
+   "cost": "Meshy text-to-image 9 credits per picture, image-to-3D 15; Rodin credits not reported by the Rodin MCP",
+   "prompts": [
+    {
+     "label": "SM_Studio_Moviola (Meshy nano-banana-pro reference)",
+     "text": "A single upright 1960s film editing machine on a grey-green metal pedestal with a small hooded viewing screen, two foot pedals and two film spool arms seen from the front at a three-quarter angle, fully visible and centered, on a plain light grey background with soft, even studio lighting. Stylized semi-realistic 1960s film-set look, chunky readable shapes with visible volume and shading, hand-painted PBR textures with subtle wear, warm tungsten tones with faded teal and mustard accents, matte, slightly worn."
+    },
+    {
+     "label": "SM_Studio_Moviola (Rodin prompt)",
+     "text": "Upright 1960s film editing machine on a grey-green metal pedestal with a small hooded viewing screen, two foot pedals and two film spool arms. Stylized semi-realistic, chunky readable shapes, hand-painted PBR textures, warm tungsten tones with faded teal and mustard accents, matte, slightly worn."
+    },
+    {
+     "label": "SM_Studio_HideTable (third try)",
+     "text": "A single long heavy tall 1960s wooden editing workbench with a thick bare top on four thick square legs at the corners, the whole space under the top completely open and empty with no shelf and no crossbars, a plain grey cloth draped over one end of the top seen from the front at a three-quarter angle, fully visible and centered, on a plain light grey background with soft, even studio lighting. Stylized semi-realistic 1960s film-set look, chunky readable shapes with visible volume and shading, hand-painted PBR textures with subtle wear, warm tungsten tones with faded teal and mustard accents, matte, slightly worn."
+    }
+   ],
+   "went_wrong": "Tripo's API key had no credits, so every model planned for Tripo went to Meshy or Rodin. The hide table came out with low stretchers on all four sides, so Blender deleted everything under the apron and added four box legs to leave room to crawl under it; the acoustic panel came out square instead of 120 x 60, so two stand side by side.",
+   "images": [
+    {
+     "role": "reference",
+     "path": "Art/Source/Environment/SM_Studio_Moviola/ref_SM_Studio_Moviola.png",
+     "caption": "moviola reference picture",
+     "size_kb": 951
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/audit-assets/studio-room-control.png",
+     "caption": "a generated studio control room",
+     "size_kb": 588
+    }
+   ],
+   "sources": [
+    "Art/Source/Environment/SM_Studio_*/meta.json",
+    "Art/Source/Props/*/meta.json",
+    "docs/devlog.md",
+    "docs/tools-used.md"
+   ]
+  },
+  {
+   "id": "studio-props-a",
+   "title": "Studio props, set A",
+   "what_for": "Furniture for four room types of the random studio: the darkroom, the dressing room, the canteen and the producer's office.",
+   "tools": "fal-ai/nano-banana reference -> Meshy Image to 3D via REST (meshy-t2 smart topology + meshy-7 PBR texture), headless Blender prep, UE import script",
+   "count": "14",
+   "cost": "210 Meshy credits and about 0.55 USD on fal (0.039 USD per picture)",
+   "prompts": [
+    {
+     "label": "SM_Prop_CoffeeMachine",
+     "text": "A single large chrome urn-style canteen coffee machine with spouts, stacked cups and a sugar jar on a small steel serving cart with a lower shelf, fully visible and centered, seen from the front at a three-quarter angle from slightly above, on a plain light grey seamless background with soft, even studio lighting. Stylized semi-realistic 1970s film-studio look for a horror game, chunky readable shapes with visible volume, realistic PBR materials, worn, dusty and slightly grimy, warm tungsten tones with faded teal and mustard accents. No text, no logos, no brand names, no labels, no people."
+    },
+    {
+     "label": "SM_Prop_Enlarger",
+     "text": "A single 1970s photographic darkroom enlarger: a vertical steel column with the lamp head and bellows on top, mounted on its own small sturdy wooden cabinet base with a flat baseboard and an easel, fully visible and centered, seen from the front at a three-quarter angle from slightly above, on a plain light grey seamless background with soft, even studio lighting. Stylized semi-realistic 1970s film-studio look for a horror game, chunky readable shapes with visible volume, realistic PBR materials, worn, dusty and slightly grimy, warm tungsten tones with faded teal and mustard accents. No text, no logos, no brand names, no labels, no people."
+    }
+   ],
+   "went_wrong": "Nothing broke in the generation; the darkroom simply never showed up in any studio seed we checked, so its four props (enlarger, trays, red lamp, drying line) are only seen in the Blender preview.",
+   "images": [
+    {
+     "role": "reference",
+     "path": "production/qa/evidence/ai-models-props-a/props-a-reference-images.png",
+     "caption": "the 14 fal reference pictures",
+     "size_kb": 1377
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/ai-models-props-a/props-a-blender-preview.png",
+     "caption": "all 14 models after Blender",
+     "size_kb": 1426
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/ai-models-props-a/studio-room-canteen-seed4.png",
+     "caption": "canteen in the game",
+     "size_kb": 1176
+    }
+   ],
+   "sources": [
+    "Art/Source/Props/*/meta.json (issue #225)",
+    "docs/tools-used.md",
+    "production/qa/evidence/ai-models-props-a/README.md"
+   ]
+  },
+  {
+   "id": "studio-props-b",
+   "title": "Studio props, set B",
+   "what_for": "Reception desk, ficus, mop, small shelf, bucket, bottles, fire extinguisher, EXIT sign, green screen, set wall, editing desk, archive shelf, suitcases and a mannequin for the lobby, corridors, stage, editing room, vault and prop store.",
+   "tools": "fal-ai/nano-banana reference -> Meshy Image to 3D via REST (meshy-t2 smart topology + meshy-7 PBR texture), Blender prep_prop.py with new --stretch and --mount options",
+   "count": "14, plus one redo of the mannequin",
+   "cost": "210 Meshy credits and about 0.55 USD on fal; the mannequin redo 15 Meshy credits and about 0.08 USD (2 pictures)",
+   "prompts": [
+    {
+     "label": "SM_Prop_Mannequin, the redo after the dress form",
+     "text": "Single isolated object, fully visible and centered with margin, three-quarter front view from slightly above, on a plain light grey seamless background, soft even studio lighting. A worn prop from an abandoned 1970s film studio, eerie horror mood, realistic PBR materials with dust, scratches and faded paint, matte, solid simple silhouette. No text, no logos, no brands, no people. Object: a complete full-body 1970s department store display mannequin, life size, standing upright on its own two legs with feet slightly apart, both feet resting on a small low square wooden base plate, NO pole, NO stand, NO rod, arms hanging down close to the body, smooth bald egg-shaped featureless head with no face, pale beige fibreglass body with chipped and flaking paint and dark grime, wearing a plain simple knee-length off-white slip dress, whole body from head to feet visible, front view slightly turned."
+    },
+    {
+     "label": "SM_Prop_PlantPot",
+     "text": "Single isolated object, fully visible and centered with margin, three-quarter front view from slightly above, on a plain light grey seamless background, soft even studio lighting. A worn prop from an abandoned 1970s film studio, eerie horror mood, realistic PBR materials with dust, scratches and faded paint, matte, solid simple silhouette. No text, no logos, no brands, no people. Object: a tall half-dead rubber plant with drooping brown leaves in a large cracked mustard ceramic floor pot."
+    },
+    {
+     "label": "SM_Prop_Sign_Exit",
+     "text": "Single isolated object, fully visible and centered with margin, three-quarter front view from slightly above, on a plain light grey seamless background, soft even studio lighting. A worn prop from an abandoned 1970s film studio, eerie horror mood, realistic PBR materials with dust, scratches and faded paint, matte, solid simple silhouette. No other text, no logos, no brands, no people. Object: a 1970s illuminated exit sign box, rectangular metal housing, white glass front panel with the single word EXIT in bold red capital letters, seen from the front at a slight angle."
+    }
+   ],
+   "went_wrong": "The first mannequin came out as a dress form on a pole; the redo prompt shouts 'NO pole, NO stand, NO rod', and of its two candidates one still had a support rod at the heel. The EXIT sign came with a conduit pipe, so it is now exported without it and the studio generator hangs it on the wall.",
+   "images": [
+    {
+     "role": "result",
+     "path": "production/qa/evidence/ai-models-props-b/models-lineup.png",
+     "caption": "first lineup: the mannequin is still a dress form on a pole",
+     "size_kb": 668
+    },
+    {
+     "role": "reference",
+     "path": "Art/Source/Props/SM_Prop_Mannequin/ref_SM_Prop_Mannequin.png",
+     "caption": "redo reference: full-body shop mannequin",
+     "size_kb": 957
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/ai-models-polish/mannequin-blender.png",
+     "caption": "the new mannequin in Blender",
+     "size_kb": 275
+    }
+   ],
+   "sources": [
+    "Art/Source/Props/*/meta.json (issue #226, #197)",
+    "Art/Source/Props/SM_Prop_Mannequin/ref_SM_Prop_Mannequin.fal.json",
+    "docs/tools-used.md",
+    "design/assets/asset-manifest.md",
+    "production/qa/evidence/ai-models-props-b/README.md"
+   ]
+  },
+  {
+   "id": "cinema-hall",
+   "title": "Cinema hall and projector",
+   "what_for": "The cinema where every day starts and ends: the projector that counts reels, the seats, the screen, the door leaves, wall sconces, the reel rack and the end-of-day button.",
+   "tools": "Meshy text to image (nano-banana-pro) -> Meshy Image to 3D (meshy-t2.5 smart topology + meshy-7 PBR); the projector through Hyper3D Rodin Gen-2.5-High",
+   "count": "7",
+   "cost": "Meshy: 24 credits per prop (9 picture + 15 model), 9 for the projector picture; Rodin credits not reported",
+   "prompts": [
+    {
+     "label": "SM_Projector (Rodin prompt)",
+     "text": "A heavy 1960s cinema film projector in dark green-grey painted metal and brass, two film reel arms on top, three square battery bays in a row on the front each with a small round indicator light, a large round lens at the front, on a sturdy iron stand."
+    },
+    {
+     "label": "SM_Cinema_Seat",
+     "text": "A single 1960s cinema seat in worn dark red velvet with a folding seat, wooden armrests with small brass number plates and a cast iron side frame seen from the front at a three-quarter angle, fully visible and centered, on a plain light grey background with soft, even studio lighting. Stylized semi-realistic 1960s film-set look, chunky readable shapes with visible volume and shading, hand-painted PBR textures with subtle wear, warm tungsten tones with faded teal and mustard accents, matte, slightly worn."
+    },
+    {
+     "label": "SM_Cinema_EndDayButton",
+     "text": "A single waist-high 1960s cinema control pedestal: a cast metal column with a slanted top panel holding one big round red push button inside a brass ring, and a row of four small round indicator lamps above the button seen from the front at a three-quarter angle, fully visible and centered, on a plain light grey background with soft, even studio lighting. Stylized semi-realistic 1960s film-set look, chunky readable shapes with visible volume and shading, hand-painted PBR textures with subtle wear, warm tungsten tones with faded teal and mustard accents, matte, slightly worn."
+    }
+   ],
+   "went_wrong": "The projector's battery bays came out as shallow panels rather than deep recesses; the end-day button was planned for Tripo and made in Meshy because Tripo's balance was zero.",
+   "images": [
+    {
+     "role": "reference",
+     "path": "Art/Source/Props/SM_Projector/ref_SM_Projector.png",
+     "caption": "projector reference picture",
+     "size_kb": 1107
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/audit-assets/end-day-button-000.png",
+     "caption": "the end-day button in the cinema",
+     "size_kb": 824
+    }
+   ],
+   "sources": [
+    "Art/Source/Props/SM_Projector/meta.json",
+    "Art/Source/Props/SM_Cinema_*/meta.json",
+    "Art/Source/Environment/SM_Cinema_EndDayButton/meta.json",
+    "docs/tools-used.md"
+   ]
+  },
+  {
+   "id": "cinema-facade-lobby",
+   "title": "Cinema facade and lobby",
+   "what_for": "The town cinema's front with a real doorway, plus the ticket booth, concession counter, popcorn machine, rope barriers, stage curtains and broken seats.",
+   "tools": "fal FLUX.2 [pro] (fal-ai/flux-2-pro) reference + fal-ai/nano-banana/edit -> Meshy Image to 3D via REST (meshy-t2 smart topology + meshy-n1 texture); the facade is a Blender box with a nano-banana/edit flat elevation image projected onto it",
+   "count": "6 props + 1 facade",
+   "cost": "120 Meshy credits (including two unused facade attempts) and about 0.40 USD on fal",
+   "prompts": [
+    {
+     "label": "SM_Facade_Cinema (FLUX.2 [pro] reference)",
+     "text": "Single isolated building facade on a plain light-grey studio background, full facade in frame, 1970s small-town cinema, worn and dusty, realistic PBR materials, game asset reference, no text, no letters, no logos, no brands, no people. Object: front elevation of a small 1970s single-screen town cinema, a very wide and low flat false-front wall, twice as wide as it is tall, painted cracked plaster with a tiled base, one central entrance with a pair of plain dark doors in a deep recess, above the entrance a projecting marquee canopy with a blank white letter board and rows of bulbs underneath, two framed empty poster cases on each side of the entrance, a row of small high windows, flat parapet top, seen almost straight from the front with a slight angle"
+    },
+    {
+     "label": "SM_Facade_Cinema (nano-banana/edit, flat elevation)",
+     "text": "Turn this into a perfectly flat orthographic front elevation texture of the same cinema facade, viewed exactly head-on with zero perspective, the facade wall filling the entire image edge to edge with no background, no sky, no ground, no steps and no shadows. Keep the cracked dirty plaster, the dark tiled base along the bottom edge, the row of small high windows, the four empty framed poster cases, and the centered marquee sign with blank white letter board and a row of bulbs under it above the centered entrance. The entrance is a plain dark rectangular opening in the middle bottom. No text, no letters, no logos."
+    },
+    {
+     "label": "SM_Cinema_TicketBooth (nano-banana/edit fix)",
+     "text": "Remove all letters from the sign on the roof of the booth so the roof band is plain blank painted metal. Keep everything else identical."
+    },
+    {
+     "label": "SM_Prop_PopcornMachine",
+     "text": "Single isolated object on a plain light-grey studio background, 3/4 view, full object in frame, 1970s small-town cinema, worn and dusty, realistic PBR materials, game asset reference, no text, no letters, no logos, no brands, no people. Object: old 1970s cinema popcorn machine cart, red painted metal cabinet with glass kettle display box on top, small wheels, about 60 cm wide 150 cm tall"
+    }
+   ],
+   "went_wrong": "The facade failed twice in Meshy: first a 7.7 m cube building with the door only drawn on, then a 7 m deep box whose window band melted into stripes. We built the wall with a 250 x 250 doorway in Blender and projected a flat AI elevation onto it. The ticket booth's sign had letters, which a nano-banana edit removed.",
+   "images": [
+    {
+     "role": "reference",
+     "path": "Art/Source/Environment/SM_Facade_Cinema/ref_SM_Facade_Cinema.png",
+     "caption": "FLUX.2 [pro] facade reference",
+     "size_kb": 1047
+    },
+    {
+     "role": "reference",
+     "path": "Art/Source/Environment/SM_Facade_Cinema/raw/elevation.png",
+     "caption": "flat elevation from nano-banana/edit",
+     "size_kb": 1354
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/ai-models-cinema/02_facade_front.png",
+     "caption": "the facade in the game",
+     "size_kb": 2192
+    }
+   ],
+   "sources": [
+    "Art/Source/Environment/SM_Facade_Cinema/meta.json",
+    "Art/Source/Environment/Cinema/*/meta.json",
+    "Art/Source/Props/SM_Prop_PopcornMachine/meta.json",
+    "docs/tools-used.md"
+   ]
+  },
+  {
+   "id": "crew-bus",
+   "title": "The walk-in crew bus",
+   "what_for": "The crew's bus by the cinema, a set you walk into, with the shop register, the camera station whose CRT shows teammates' cameras, the sell bin under a SELL HERE sign and the revive defibrillator.",
+   "tools": "fal FLUX.2 [pro] edit (fal-ai/flux-2-pro/edit) with three style references cut from our finished models (duck, reel, projector) -> Hyper3D Rodin Gen-2.5-High over MCP -> headless Blender 5.3 scripts -> UE editor Python import",
+   "count": "8 models (bus, interior, antenna array built in Blender, register, camera station, sell bin, sign, defibrillator)",
+   "cost": "Rodin credits not reported by the Rodin MCP",
+   "prompts": [
+    {
+     "label": "Bus body (FLUX.2 [pro] edit, style refs @image1..@image3)",
+     "text": "A single very long boxy 1960s high-roof film crew van, an extended delivery bus body about three times longer than it is tall, with a flat roof and a long cargo section behind the cab. Made in the exact stylized art style of the objects in @image1, @image2 and @image3: a game asset with chunky, slightly faceted, hand-carved looking shapes, deep panel seams, bright worn highlights hand-painted along every edge and seam, small scratches, dents and rivets, simple readable forms, not photorealistic. Mustard yellow paint like the duck in @image1 with a wide cream stripe along the side, burnt copper bumpers, hubcaps, window frames and an empty roof rack like the metal in @image2, round chrome headlights, a large sliding side door on the right side of the cargo section, two rear doors, small dark tinted windows you cannot see through, dark brown tyres. No text, no logos, no lettering, no license plate. Seen from the front right at a three-quarter angle, the whole van fully visible and centered with space around it, on a plain dark charcoal grey background with soft, even studio lighting."
+    },
+    {
+     "label": "Defibrillator",
+     "text": "A single vintage 1960s wall-mounted defibrillator kit for a film crew van: a sturdy rectangular metal wall cabinet painted cream and faded teal with burnt copper trim and hinges, its front door open, inside a chunky old defibrillator machine with a big round analog dial, two toggle switches, a small red indicator lamp and two heavy paddles with black handles hanging on coiled cables, and on the top panel a simple white heart with a lightning bolt symbol, [the same style sentence as above]. No text, no letters, no red cross, no logo."
+    }
+   ],
+   "went_wrong": "The first bus pictures looked like a photo of a real, short van; one result of the second round had a star badge that read as a real car brand. fal would not draw a CRT as wide as the desk in three tries, so Blender scaled the monitor islands 1.4x, and Rodin's defibrillator cabinet came out turned 33 degrees. A red phone booth was tried for the revive point and replaced by the defibrillator.",
+   "images": [
+    {
+     "role": "reference",
+     "path": "docs/devlog/2026-11-13-1241-bus-views-fal.png",
+     "caption": "fal bus views Badys approved",
+     "size_kb": 1116
+    },
+    {
+     "role": "reference",
+     "path": "docs/devlog/2026-11-13-1314-bus-props-rejected.png",
+     "caption": "the first six props, rejected",
+     "size_kb": 1437
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/qa1311g-82-bus-interior-solo.png",
+     "caption": "inside the bus in the game",
+     "size_kb": 704
+    }
+   ],
+   "sources": [
+    "docs/devlog.md (12:34-15:14 The crew bus becomes a set you can walk into)",
+    "Art/Source/Vehicles/SM_Van_Body/v2/meta.json",
+    "Art/Source/Vehicles/Props_Bus/meta.json",
+    "docs/tools-used.md"
+   ]
+  },
+  {
+   "id": "forest-places",
+   "title": "Forest places",
+   "what_for": "Small scenes in the clearings of the world map: gas station kiosk, pumps, sign and oil drums, camper trailers, folding chairs and a washing line, film set flats and film can crates, a tent, fire ring, cooler and lantern, and the Holy Trinity shrine.",
+   "tools": "fal-ai/nano-banana reference -> Meshy Image to 3D (meshy-t2 smart topology + meshy-n1 texture); headless Blender prep_place.py; a 'places' step in the world builder",
+   "count": "14",
+   "cost": "210 Meshy credits (15 each)",
+   "prompts": [
+    {
+     "label": "SM_Place_TrinityShrine",
+     "text": "Single isolated object, centered, full object visible, plain light-grey studio background, three-quarter view from slightly above, realistic PBR game asset, worn and weathered 1970s American backwoods film location prop, muted desaturated colours, no text, no letters, no numbers, no logos, no brands, no people. Object: a small wayside shrine: a short square wooden post with a tiny pitched shingle roof sheltering a blank brass plaque, three melted candle stubs and wild flowers at the foot"
+    },
+    {
+     "label": "SM_Place_GasKiosk",
+     "text": "Single isolated object, centered, full object visible, plain light-grey studio background, three-quarter view from slightly above, realistic PBR game asset, worn and weathered 1970s American backwoods film location prop, muted desaturated colours, no text, no letters, no numbers, no logos, no brands, no people. Object: a tiny single-storey roadside gas station kiosk building seen from the front corner, flat roof with a small overhang, a closed wooden front door with a small glass pane in the middle of the front wall, one wide dusty shop window on each side of the door, peeling cream paint, rusty gutters"
+    },
+    {
+     "label": "SM_Place_Tent",
+     "text": "Single isolated object, centered, full object visible, plain light-grey studio background, three-quarter view from slightly above, realistic PBR game asset, worn and weathered 1970s American backwoods film location prop, muted desaturated colours, no text, no letters, no numbers, no logos, no brands, no people. Object: an old canvas A-frame camping tent, faded khaki, one side sagging, the front flap open, guy ropes and wooden pegs, standing on nothing, no ground, no base, no terrain"
+    }
+   ],
+   "went_wrong": "The first fal key had been revoked, the Meshy queue refused more than 12 tasks at once, and our first collision check reported every model as hollow because the old FBX importer ignored the UCX boxes; the importer now gives each solid prop one simple box.",
+   "images": [
+    {
+     "role": "reference",
+     "path": "Art/Source/World/Places/SM_Place_TrinityShrine/raw/ref.png",
+     "caption": "shrine reference picture",
+     "size_kb": 1154
+    },
+    {
+     "role": "result",
+     "path": "Art/Source/World/Places/SM_Place_TrinityShrine/raw/meshy_preview.png",
+     "caption": "Meshy preview of the shrine",
+     "size_kb": 150
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/ai-places/05d_holy_trinity_shrine.png",
+     "caption": "the shrine on the Holy Trinity clearing",
+     "size_kb": 1145
+    }
+   ],
+   "sources": [
+    "Art/Source/World/Places/*/raw/meta.json",
+    "design/assets/asset-manifest.md",
+    "docs/devlog.md",
+    "docs/tools-used.md"
+   ]
+  },
+  {
+   "id": "nature",
+   "title": "Dead wood and rock",
+   "what_for": "Cliffs and boulders along the invisible wall before the mountains, dead and burnt trees around the studio and the ravine, logs and stumps along the paths.",
+   "tools": "fal-ai/nano-banana reference -> Meshy Image to 3D (meshy-t2 smart topology, 3,000 to 6,000 triangles, meshy-7 PBR texture); Blender prep_nature.py (scale, pivot, convex collision), Nanite on import",
+   "count": "10 kept models placed as 211 instances; 2 bushes rejected",
+   "cost": "180 Meshy credits (12 tasks x 15, including the two rejected bushes) and about 0.47 USD on fal (12 pictures)",
+   "prompts": [
+    {
+     "label": "SM_AI_Tree_Burnt_A",
+     "text": "Single isolated object centered on a plain light-grey studio background, 3/4 view from slightly above, full object visible with margin, soft even lighting, realistic PBR materials, muted desaturated colours of an overcast Pacific Northwest forest in the 1970s, slightly eerie, no text, no logos, no people, no ground plane, no shadows on the floor. Object: a burnt charred tree trunk snag about 5 m tall, black charcoal bark with cracks, jagged broken top, two thick stubby broken branches, flared roots at the base, no leaves, no thin twigs"
+    },
+    {
+     "label": "SM_AI_Cliff_A",
+     "text": "Single isolated object centered on a plain light-grey studio background, 3/4 view from slightly above, full object visible with margin, soft even lighting, realistic PBR materials, muted desaturated colours of an overcast Pacific Northwest forest in the 1970s, slightly eerie, no text, no logos, no people, no ground plane, no shadows on the floor. Object: a section of a steep mountain cliff rock face, a wide vertical wall of fractured grey granite with ledges and vertical cracks, flat back side, about 12 m wide and 8 m tall, seen from the front at 3/4"
+    },
+    {
+     "label": "SM_AI_Rock_Boulder_A",
+     "text": "Single isolated object centered on a plain light-grey studio background, 3/4 view from slightly above, full object visible with margin, soft even lighting, realistic PBR materials, muted desaturated colours of an overcast Pacific Northwest forest in the 1970s, slightly eerie, no text, no logos, no people, no ground plane, no shadows on the floor. Object: a large rounded granite boulder, grey with lichen spots and a little moss on top, weathered cracks, about 2 m wide, solid single rock"
+    }
+   ],
+   "went_wrong": "Both AI bushes failed: the first came out as a ball of spiky shards, the retry as a pile of green artichokes, so we kept our own bushes and all the living trees. The first row of cliff faces looked like a fence from above, so each face now leans back a few degrees at its own height and angle.",
+   "images": [
+    {
+     "role": "result",
+     "path": "production/qa/evidence/ai-nature/rejected_bush_B_try2.png",
+     "caption": "rejected bush: the 'artichokes'",
+     "size_kb": 143
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/ai-nature/rejected_bush_A_try1.png",
+     "caption": "rejected bush: a ball of spiky shards",
+     "size_kb": 170
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/ai-nature/after/12_mountains_edge.png",
+     "caption": "cliffs at the mountain edge",
+     "size_kb": 1586
+    }
+   ],
+   "sources": [
+    "Art/Source/Nature/*/meta.json",
+    "production/qa/evidence/ai-nature/README.md",
+    "docs/devlog.md",
+    "docs/tools-used.md"
+   ]
+  },
+  {
+   "id": "materials",
+   "title": "Surfaces",
+   "what_for": "Eight tiling surfaces: cinema carpet, wallpaper and brass, studio linoleum, plaster, acoustic foam, wood veneer and basement concrete.",
+   "tools": "fal nano-banana-pro (text to image) for the base colour; normal and roughness maps computed locally in Python with numpy",
+   "count": "8",
+   "cost": "1.20 USD on fal (0.15 USD per picture)",
+   "prompts": [
+    {
+     "label": "Cinema_Floor_Carpet",
+     "text": "Seamless tileable texture, orthographic top-down view straight onto the surface, flat even diffuse lighting with no shadows, no highlights and no vignette, the surface fills the whole frame edge to edge, no objects, no text, no logos. Stylised hand-painted realism with a large readable pattern and subtle wear, no tiny photographic micro detail. Surface: worn old theatre carpet, deep oxblood red (#6B1E2A) with a small repeating geometric pattern in muted mustard gold (#C9A227), slightly flattened pile, a few faded worn patches."
+    }
+   ],
+   "went_wrong": "The spec named PBRgen, which was not used; this pass is an AI placeholder through fal, at 1024 px where the spec asked for 2K.",
+   "images": [
+    {
+     "role": "result",
+     "path": "Art/Source/Materials/Cinema_Floor_Carpet/raw/raw_Cinema_Floor_Carpet.png",
+     "caption": "raw carpet texture from nano-banana-pro",
+     "size_kb": 2140
+    }
+   ],
+   "sources": [
+    "Art/Source/Materials/*/meta.json",
+    "docs/tools-used.md"
+   ]
+  },
+  {
+   "id": "crew-character",
+   "title": "The film crew (player character)",
+   "what_for": "What teammates see in co-op: a 1970s film crew member in a work jacket in one of four colours, on the UE5 mannequin skeleton, with gestures for knocking, hiding, reviving, the trumpet, flinching and being caught.",
+   "tools": "fal FLUX.2 [pro] (seed 7019) reference -> Meshy Image to 3D (meshy-t2.5 smart topology, about 20,000 triangles, meshy-n1 texture) + Meshy rigging -> Blender build_crew.py onto the mannequin skeleton; 7 clips from Meshy Text to Motion (prime) retargeted by Blender retarget_meshy_anims.py; 9 earlier clips (crouch walk, reel carry, held item, camcorder pose, throw and spares) from Hyper3D Rodin rigging with its animation catalog, retargeted with RTG_Rodin_To_Manny",
+   "count": "1 character, 7 Meshy clips, 9 Rodin clips",
+   "cost": "Meshy 111 credits (15 model + 5 rig + 7 x 13 for motion and applying it); fal one FLUX.2 [pro] picture, about 0.05 USD; Rodin not reported",
+   "prompts": [
+    {
+     "label": "SK_Crew_Base reference (FLUX.2 [pro])",
+     "text": "Full body character reference for a realistic PBR video game character, front view, symmetrical A-pose (arms straight and angled 45 degrees down away from the body, hands open with fingers together, legs slightly apart), entire figure visible from the cap to the boots, centered, plain flat neutral grey background, soft even studio lighting, no shadows on background. A 1970s film crew member (grip / camera assistant), adult man of average build, neutral calm expression, generic ordinary face that does not resemble any real person, short hair under a faded olive-green baseball cap. Worn tan canvas work jacket with sewn-on plain patches without any text, logos or brands, sleeves to the wrists, jacket closed. Old over-ear headphones with a coiled cable resting around the neck. Leather utility belt with a roll of grey gaffer tape clipped on the hip and a small leather pouch. Dark brown cargo trousers with side pockets, worn brown leather work boots. Muted 1970s colour palette, slightly dusty and worn fabric, realistic materials, game asset reference sheet, no props in hands, no text, no watermark."
+    },
+    {
+     "label": "AN_Player_Caught (Meshy Text to Motion)",
+     "text": "A man standing is suddenly grabbed by the shoulders from the front, recoils in terror and struggles, flailing his arms and pushing away."
+    },
+    {
+     "label": "AN_Player_Knock",
+     "text": "A man stands facing a closed door and knocks on it three times with his right fist at head height, then lowers his arm and waits."
+    },
+    {
+     "label": "AN_Player_Trumpet_Blow",
+     "text": "A man standing raises a trumpet to his lips with both hands, blows it hard leaning back slightly, then lowers it."
+    }
+   ],
+   "went_wrong": "Rodin's first two rigging tries failed (wrong format, then a human_UE template without a Hips bone); the third with the 'human' template worked. Before the crew model, crouching was faked by squashing the mannequin to 0.47 of its height, so a crouching teammate looked like someone had sat on him. The first crew export gave the root bone a scale of 100, so the mannequin clips squashed the body to one hundredth.",
+   "images": [
+    {
+     "role": "reference",
+     "path": "Art/Source/Characters/SK_Crew_Base/ref_A.png",
+     "caption": "FLUX.2 [pro] A-pose reference",
+     "size_kb": 1111
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/ai-crew/crew-jackets.png",
+     "caption": "four jacket colours in the game",
+     "size_kb": 759
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/ai-crew/crew-knock.png",
+     "caption": "knocking gesture",
+     "size_kb": 790
+    }
+   ],
+   "sources": [
+    "design/zmiany/2026-11-14-ekipa.md",
+    "design/zmiany/2026-11-13-animacje.md",
+    "Art/Source/Characters/SK_Crew_Base/ref_A.fal.json",
+    "Art/Source/Animations/AN_Player_*/meta.json",
+    "production/qa/evidence/ai-crew/README.md",
+    "docs/tools-used.md"
+   ]
+  },
+  {
+   "id": "monster-take-fourteen",
+   "title": "Take Fourteen, the monster",
+   "what_for": "The game's only monster: a gaunt 240 cm figure of wound magnetic film tape with a rusty reel hub in its chest, ear loops of film strip and two antennae, with 13 animations on one rig.",
+   "tools": "fal FLUX.2 [pro] (seed 1414) reference -> fal-ai/nano-banana/edit cleanup -> Meshy Image to 3D via REST (meshy-t2.5 smart topology, 22,225 triangles, meshy-n1 texture) -> Meshy Rig (24 bones) -> 8 Meshy Animate library clips + 5 Meshy Text to Motion clips; Blender removed root motion",
+   "count": "1 monster + 13 animations",
+   "cost": "102 Meshy credits and about 0.10 USD on fal",
+   "prompts": [
+    {
+     "label": "Reference (FLUX.2 [pro], as stored in meta.json with ellipses)",
+     "text": "Full-body character concept for a 3D game model, front view, symmetrical T-pose ... A gaunt, very tall humanoid creature (about 240 cm) built entirely from tangled brown magnetic film tape and old film-reel parts ... two large oval ear-like loops made of looped film tape with dusty pale pink membrane inside, and two long thin antenna-like stalks with cream tips ... Smooth eyeless face ... horror for teens, no gore, no blood, no text, no logos, single character only."
+    },
+    {
+     "label": "Cleanup (nano-banana/edit)",
+     "text": "Edit this creature for a clean 3D game model: keep exactly the same character ... Remove every loose hanging strand of tape ... Move the two ear loops so they attach directly to the sides of the head ... completely eyeless and smooth ... symmetrical A-pose ... plain flat light-grey background, no text."
+    },
+    {
+     "label": "AN_Monster_Lunge (Text to Motion)",
+     "text": "Crouches low and coils, then leaps forward in one short powerful lunge with both long arms reaching out to grab, and lands crouched."
+    },
+    {
+     "label": "AN_Monster_Idle_Listen (Text to Motion)",
+     "text": "A tall creature stands still, slightly hunched forward, arms hanging loose, and slowly tilts its head to one side as if listening intently, holds, then slowly tilts its head to the other side and holds again."
+    }
+   ],
+   "went_wrong": "The text-to-motion lunge jumped 1.6 m into the air, so Blender lowered it (x0.3), and two sideways library clips were turned to face forward. Loose tape strands that would have ruined the rig were edited out of the reference. The first Unreal import renamed the skeleton and left the monster frozen in its A-pose until we imported onto a throwaway skeleton copy.",
+   "images": [
+    {
+     "role": "reference",
+     "path": "Art/Source/Characters/SK_Monster_TakeFourteen/raw/ref_SK_Monster_TakeFourteen_first.png",
+     "caption": "first FLUX.2 [pro] reference with loose tape",
+     "size_kb": 615
+    },
+    {
+     "role": "reference",
+     "path": "Art/Source/Characters/SK_Monster_TakeFourteen/ref_SK_Monster_TakeFourteen.png",
+     "caption": "cleaned A-pose reference",
+     "size_kb": 1051
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/ai-monster/catch.png",
+     "caption": "Take Fourteen catching a player",
+     "size_kb": 826
+    }
+   ],
+   "sources": [
+    "Art/Source/Characters/SK_Monster_TakeFourteen/meta.json",
+    "Art/Source/Animations/AN_Monster_*/meta.json",
+    "docs/devlog.md (14:00-15:50 Take Fourteen)",
+    "docs/tools-used.md"
+   ]
+  },
+  {
+   "id": "monster-listener",
+   "title": "The Listener (first monster)",
+   "what_for": "The first monster body from Day 1: an insect-like creature with huge ears that hunts by sound; it stays in the project as a fallback with its animations.",
+   "tools": "Meshy text to image (nano-banana-pro, A-pose) -> Meshy Image to 3D (meshy-t2.5 smart topology, 30,000 triangles, meshy-n1 texture) -> Meshy Rig; Meshy Animate and Text to Motion for its clips",
+   "count": "1 monster",
+   "cost": "29 Meshy credits for the body (9 picture + 15 model + 5 rig)",
+   "prompts": [
+    {
+     "label": "SK_Monster_Listener (spec ASSET-001 step 1, used verbatim per meta.json)",
+     "text": "A single full-body upright insect-like creature about 190 cm tall with a pear-shaped fuzzy brown body, a small head with two tiny pinprick eyes, two huge pink-lined membrane ears wider than its shoulders, two long feathery antennae with cream tips, thin stick-like arms and legs, standing in an A-pose with arms about 45 degrees down, seen from the front, fully visible and centered, on a plain light grey background with soft, even studio lighting. Stylized semi-realistic 1960s film-set look, chunky readable shapes with visible volume and shading, hand-painted PBR textures with subtle wear, warm tungsten tones with faded teal and mustard accents, matte, slightly worn."
+    }
+   ],
+   "went_wrong": "It came out as 'a plush pear that could make someone smile', which is not what a horror monster should do, so on Day 3 it was replaced by Take Fourteen. The Meshy skeleton had no ear or antenna bones.",
+   "images": [
+    {
+     "role": "reference",
+     "path": "Art/Source/Characters/SK_Monster_Listener/ref_SK_Monster_Listener.png",
+     "caption": "Listener reference picture",
+     "size_kb": 1307
+    }
+   ],
+   "sources": [
+    "Art/Source/Characters/SK_Monster_Listener/meta.json",
+    "design/assets/specs/lost-reels-assets.md",
+    "docs/devlog.md"
+   ]
+  },
+  {
+   "id": "golden-duck",
+   "title": "The golden duck's cameo",
+   "what_for": "A 5-second shot in the final film: the golden duck alone on a black-and-white film set, captioned 'SPECIAL APPEARANCE / THE GOLDEN DUCK AS HIMSELF'.",
+   "tools": "fal-ai/nano-banana-pro/edit (seed 204) on the duck model's reference picture -> fal-ai/kling-video/v2.5-turbo/pro/image-to-video (Kling 2.5 Turbo Pro) -> ffmpeg",
+   "count": "1 clip (English and Polish captions)",
+   "cost": "0.50 USD per the fal price list (0.15 still + 0.35 video)",
+   "prompts": [
+    {
+     "label": "Still (nano-banana-pro edit)",
+     "text": "The same rubber duck from the reference image, but made of polished gold, sitting alone on the wooden floor of an empty 1960s film studio set, lit by a single hard spotlight from above, dust floating in the light beam, darkness around. Black and white 16mm film still, heavy film grain, high contrast, deep shadows, soft vignette. Wide 16:9 frame, the duck small in the centre. No text, no people, no logos."
+    },
+    {
+     "label": "Video (Kling image-to-video, plus the shared style suffix)",
+     "text": "A small golden rubber duck sits alone on a film set under a single spotlight, dust drifting slowly through the light beam. Slow dolly-in toward the duck. The duck does not move. + wspólny dopisek stylu"
+    }
+   ],
+   "went_wrong": "Until fal had money again on 14 Nov this slot showed a still photo of the model with a slow zoom. Kling takes no seed, so the clip cannot be reproduced exactly.",
+   "images": [
+    {
+     "role": "reference",
+     "path": "Art/Source/Items/SM_Val_RubberDuck/ref_SM_Val_RubberDuck.png",
+     "caption": "duck reference picture used as input",
+     "size_kb": 1225
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/feat-204/duck_clip_en_3s.png",
+     "caption": "frame from the cameo at 3 s",
+     "size_kb": 359
+    }
+   ],
+   "sources": [
+    "assets/video/generated.md",
+    "docs/tools-used.md"
+   ]
+  },
+  {
+   "id": "director-voice-en",
+   "title": "The Director's voice",
+   "what_for": "The Director's intro, day start and day end lines, the cinema announcer, live comments from the booth and the final film lines.",
+   "tools": "ElevenLabs Text to Speech eleven_v4, premade voice 'Bill', stability 0.35, similarity 0.75 (first through fal, later the ElevenLabs API); ElevenLabs Speech to Text (scribe_v1) checks every line word for word; ffmpeg loudspeaker filter for announcements",
+   "count": "38 game lines + 7 final film lines",
+   "cost": "Day 1 lines are inside the fal audio totals; hints 57 ElevenLabs credits, 17 live lines 310 credits",
+   "prompts": [
+    {
+     "label": "S_VO_PA_Siren_2min",
+     "text": "TTS eleven-v4, voice Bill, stability 0.35, similarity 0.75: “Attention. Two minutes of daylight left. Come back to the cinema. All of you.” + filtr głośnika"
+    },
+    {
+     "label": "S_VO_Dir_Cut_01",
+     "text": "TTS eleven-v4, voice Bill, stability 0.35, similarity 0.75: “CUT! Somebody wandered into the shot.”"
+    },
+    {
+     "label": "S_VO_Dir_Live_LastReel",
+     "text": "TTS eleven_v4, Bill, filtr głośnika: “The last reel! I could kiss the projector. I won't. It bites.”"
+    },
+    {
+     "label": "S_VO_Dir_Hint_Shop",
+     "text": "TTS eleven_v4, Bill: “Buy the scanner. It scans. That is all it does, but it does it well.”"
+    }
+   ],
+   "went_wrong": "Two takes came out with no speech at all and were dropped. S_VO_Dir_DayWin_01 ran 3.7 s against a 3 s limit, so it was sped up (atempo 1.26). A 192 kbps MP3 request got HTTP 403 because that format needs a higher plan.",
+   "images": [
+    {
+     "role": "result",
+     "path": "production/qa/evidence/shipping-director-intro-subtitles-qa1311c.png",
+     "caption": "the Director's intro with subtitles",
+     "size_kb": 1035
+    }
+   ],
+   "sources": [
+    "assets/audio/generated.md",
+    "docs/tools-used.md"
+   ]
+  },
+  {
+   "id": "director-voice-pl",
+   "title": "The Director in Polish",
+   "what_for": "An optional Polish dub of all Director and announcer lines and the final film, with Polish subtitles and title cards.",
+   "tools": "ElevenLabs Text to Speech eleven_v4 with language_code pl, same 'Bill' voice; ElevenLabs Speech to Text scribe_v1 (pl) for word-for-word checks; eleven_multilingual_v2 tried and not used; ffmpeg for the PL movies",
+   "count": "38 game lines + 7 final film lines",
+   "cost": "1021 ElevenLabs credits for the 38 lines (914 final, 74 for four rejected takes, 33 for the multilingual_v2 test) + 156 credits for the 7 final film lines",
+   "prompts": [
+    {
+     "label": "S_VO_Dir_Cut_01_PL (the retake)",
+     "text": "TTS eleven_v4 pl, Bill: “Cięcie! Ktoś wlazł w kadr.”"
+    },
+    {
+     "label": "S_VO_Dir_Live_Night_02_PL (the retake)",
+     "text": "TTS eleven_v4 pl, Bill, filtr głośnika: “[whispers] Zapadła noc. Ktoś jeszcze tam jest. Mam nadzieję, że to ktoś z was.”"
+    },
+    {
+     "label": "S_VO_Dir_FinalCut_Duck_PL",
+     "text": "TTS eleven_v4 pl, Bill: “I kaczka. Nie pytajcie. Kaczka zostaje.”"
+    }
+   ],
+   "went_wrong": "Written in capitals like the English 'CUT!', CIĘCIE was read as 'Siecie'; in lower case it is fine. The whispered 'Noc' came out as 'Nok', so the line got a verb ('Zapadła noc.'), and DayWin_01 ran 4.3 s until we dropped 'Pięknie'.",
+   "images": [
+    {
+     "role": "result",
+     "path": "production/qa/evidence/feat-224-lang/pl-intro-polish-dub-subtitles.png",
+     "caption": "Polish intro with subtitles",
+     "size_kb": 1025
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/feat-224/finalcut_pl_cards.png",
+     "caption": "Polish final film cards",
+     "size_kb": 1278
+    }
+   ],
+   "sources": [
+    "assets/audio/generated.md",
+    "design/audio/05-glos-pl.md",
+    "docs/tools-used.md"
+   ]
+  },
+  {
+   "id": "director-intro-and-reels",
+   "title": "The Director's intro and reel clips",
+   "what_for": "The 48.5 s intro film (the Director only from behind, the monster only as a silhouette) and three 6 s clips that play when a reel is delivered, all in a 1960s 16 mm black-and-white look.",
+   "tools": "fal-ai/kling-video/v2.5-turbo/pro/text-to-video (Kling 2.5 Turbo Pro, 1920 x 1080, 24 fps) -> ffmpeg (desaturation, grain, flicker, gate weave, scratches, vignette); subtitles timed with local Whisper (Vexa STT)",
+   "count": "14 Kling shots, 130 s of raw video",
+   "cost": "9.10 USD per the fal price list (0.07 USD per second); the fal balance dropped by 11.50 USD, the rest most likely other jobs on the same account",
+   "prompts": [
+    {
+     "label": "Shared style suffix",
+     "text": "Shot on black and white 16mm film in the early 1960s, heavy film grain, high contrast, deep shadows, soft vignette, slight gate weave, tense suspense horror mood, slow deliberate camera. No faces visible, no text, no letters, no signs, no logos."
+    },
+    {
+     "label": "intro04 (the monster's silhouette)",
+     "text": "A pitch-dark recording studio. A tall thin creature stands perfectly still in the doorway, only its black outline visible against faint light behind it: long thin antennae and huge bat-like ears that slowly turn, listening. Very slow push in."
+    },
+    {
+     "label": "reel01",
+     "text": "An empty film studio corridor at night. A single caged wall lamp flickers on and off, long shadows on the walls. The camera slowly dollies forward toward a closed door at the far end; the door handle slowly turns by itself and the door opens a crack into blackness."
+    },
+    {
+     "label": "intro07 (only the fist survived)",
+     "text": "Close-up of a person's open palm, only the hand visible, holding two crumpled old paper banknotes; the hand slowly closes into a fist. Dramatic side light."
+    }
+   ],
+   "went_wrong": "Kling drew a banknote with a portrait in intro07, so only the clenched fist stayed; it wrote gibberish on the cinema marquee in intro06, cropped down to the bus; and ending01 was rejected for faces and gibberish on the cinema screen, replaced by ending01_v2.",
+   "images": [
+    {
+     "role": "result",
+     "path": "production/qa/evidence/shipping-director-intro-subtitles-qa1311c.png",
+     "caption": "intro playing in the packaged game",
+     "size_kb": 1035
+    }
+   ],
+   "sources": [
+    "assets/video/generated.md",
+    "docs/tools-used.md"
+   ]
+  },
+  {
+   "id": "final-film-segments",
+   "title": "The final film, cut from your reels",
+   "what_for": "The ending film is assembled from the reels the crew actually delivered: real scenes or MISSING FOOTAGE cards, a wrap or a CUT! ending, the duck cameo, a harm/no-harm card, and always 'What do you do?' at the end.",
+   "tools": "Kling 2.5 Turbo Pro shots reused from the reel clips and ending01_v2, ElevenLabs Music (S_Mus_Final_Cut), ElevenLabs TTS eleven_v4 'Bill' for 7 new lines, ffmpeg via build_movies.py finalcut (no paid generator in the assembly)",
+   "count": "12 segment files, each with an English and a Polish version",
+   "cost": null,
+   "prompts": [
+    {
+     "label": "ending01_v2 (wrap shot, Kling)",
+     "text": "Wide shot from the back of an empty old cinema: four small dark silhouettes seen from behind sit in the front row, tiny against a huge completely blank white screen that glows with plain flickering light, nothing projected on it. A soft smooth cone of projector light through the dust above the seats. Very slow pull back down the aisle."
+    },
+    {
+     "label": "S_VO_Dir_FinalCut_Missing_03",
+     "text": "“No scene three. Imagine something terrifying. You're good at that.”"
+    },
+    {
+     "label": "S_VO_Dir_FinalCut_Harm",
+     "text": "“Some extras missed the wrap party. Lovely work, though.”"
+    }
+   ],
+   "went_wrong": "The first wrap shot (ending01) was rejected for faces and gibberish on the cinema screen, so the wrap uses ending01_v2. The ideas audit warned that a judge might never see the payoff of one fixed film, which is why the ending is now cut from the reels you delivered.",
+   "images": [
+    {
+     "role": "result",
+     "path": "production/qa/evidence/feat-204/01-missing-footage-scene2-with-director-subtitle.png",
+     "caption": "MISSING FOOTAGE card",
+     "size_kb": 997
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/feat-204/06-win-some-extras-harmed.png",
+     "caption": "'Some extras were harmed' ending card",
+     "size_kb": 983
+    }
+   ],
+   "sources": [
+    "assets/video/generated.md",
+    "assets/audio/generated.md",
+    "docs/devlog.md"
+   ]
+  },
+  {
+   "id": "hud-icons",
+   "title": "HUD item icons",
+   "what_for": "Flat cream pictograms for the inventory slots and HUD: battery, camera, ear, flashlight, rubber duck, clapperboard, empty reel, flash camera, scanner, trophy, trumpet and watch.",
+   "tools": "Meshy text to image (nano-banana-pro, gpt-image-2 for one retry) and, after Meshy hit its API credit limit, fal nano-banana-pro; Python/PIL post-process to white + alpha",
+   "count": "12 AI icons in the game; 2 more (reel, small battery) were tried with AI and then drawn in Python",
+   "cost": "63 Meshy credits and 1.20 USD on fal (8 pictures at 0.15)",
+   "prompts": [
+    {
+     "label": "T_UI_Icon_Ear",
+     "text": "A human ear in profile. Flat pictogram icon made of one bold solid cream silhouette with a thick even outline, simple geometric shapes, a single flat color, centered front view, on a plain dark grey background, readable at 64 pixels."
+    },
+    {
+     "label": "T_UI_Icon_Trumpet",
+     "text": "A trumpet seen from the side, pointing right: a straight horizontal tube with a wide flared bell on the right, a mouthpiece on the left and three valve buttons on top. Flat pictogram icon made of one bold solid cream silhouette with a thick even outline, simple geometric shapes, a single flat color, centered front view, on a plain dark grey background, readable at 64 pixels."
+    },
+    {
+     "label": "T_UI_Icon_Reel, second try (rejected)",
+     "text": "A film reel: one big circle with exactly three round holes arranged in a triangle around a small hub. Flat pictogram icon made of one bold solid cream silhouette with a thick even outline, simple geometric shapes, a single flat color, centered front view, on a plain dark grey background, readable at 64 pixels."
+    }
+   ],
+   "went_wrong": "The reel icon came out with four holes, then the retry read as a fidget spinner, so Python drew it; the small battery read as a jar or a bag. Meshy refused mid-batch with HTTP 402 'API key credit limit reached' (nothing charged), so the rest went through fal.",
+   "images": [
+    {
+     "role": "result",
+     "path": "Art/Source/UI/T_UI_Icon_Reel/raw_T_UI_Icon_Reel_v2.png",
+     "caption": "rejected reel icon: a fidget spinner",
+     "size_kb": 908
+    },
+    {
+     "role": "result",
+     "path": "Art/Source/UI/T_UI_Icon_Trumpet/raw_T_UI_Icon_Trumpet.png",
+     "caption": "raw trumpet icon from nano-banana-pro",
+     "size_kb": 771
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/audit-ui/hud-studio-items-1920x1080.png",
+     "caption": "icons in the HUD",
+     "size_kb": 144
+    }
+   ],
+   "sources": [
+    "Art/Source/UI/T_UI_Icon_*/meta.json",
+    "docs/tools-used.md"
+   ]
+  },
+  {
+   "id": "achievement-icons",
+   "title": "Achievement badges (no AI)",
+   "what_for": "21 round film-reel badges, their grey locked variants and a hidden badge with a question mark.",
+   "tools": "No AI image model: Claude Code wrote tools/ui/draw_achievement_icons.py, Python writing SVG rendered with resvg; no fonts, no third-party art",
+   "count": "21 badges + 21 locked variants + 1 hidden badge",
+   "cost": "0",
+   "prompts": [],
+   "went_wrong": null,
+   "images": [
+    {
+     "role": "result",
+     "path": "production/qa/evidence/achievement-icons/achievement-icons-contact-sheet.png",
+     "caption": "all badges",
+     "size_kb": 404
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/achievement-icons/achievement-toast.png",
+     "caption": "achievement toast in the game",
+     "size_kb": 55
+    }
+   ],
+   "sources": [
+    "Art/Source/UI/Achievements/meta.json",
+    "docs/tools-used.md"
+   ]
+  },
+  {
+   "id": "ui-kit",
+   "title": "'Projection Booth' UI kit (no AI)",
+   "what_for": "One look for every screen: button plates with a focus frame, a sprocket strip, the countdown plate, slot frames, padlock, checkboxes, slider thumb, the logo, the CUT! slate and the day card.",
+   "tools": "No AI image model: Python with PIL, numpy and fontTools written by Claude Code (draw_projection_booth.py), imported by a UE editor script; fonts Barlow Condensed, VT323, Fraunces and Special Elite",
+   "count": "about 15 UI textures",
+   "cost": "0",
+   "prompts": [],
+   "went_wrong": "The logo, the CUT! clapperboard and the itch.io cover were first rendered with Impact, a Windows system font we may not redistribute, and were re-rendered with Barlow Condensed Bold on 14 Nov.",
+   "images": [
+    {
+     "role": "result",
+     "path": "production/qa/evidence/audit-ui/main-menu-play-1920x1080.png",
+     "caption": "main menu",
+     "size_kb": 370
+    },
+    {
+     "role": "result",
+     "path": "production/qa/evidence/audit-ui/pause-menu-1920x1080.png",
+     "caption": "pause menu",
+     "size_kb": 479
+    }
+   ],
+   "sources": [
+    "Art/Source/UI/T_UI_*/meta.json",
+    "docs/tools-used.md",
+    "docs/devlog.md"
+   ]
+  },
+  {
+   "id": "sfx",
+   "title": "Sound effects",
+   "what_for": "Footsteps on every floor, the monster's cries and chitter, items, the camera and flash, radios, the shop, ambience loops, UI ticks and stingers.",
+   "tools": "ElevenLabs Sound Effects v2 (fal-ai/elevenlabs/sound-effects/v2 on Day 1, then eleven_text_to_sound_v2 directly through the ElevenLabs API, one take per file); ffmpeg and numpy for slicing, loops and loudness; numpy synthesis for the big-map stand-ins when fal was empty",
+   "count": "Day 1 P0 batch (56 sound files incl. music and voice), 38 SFX in batch 2, 192 WAV files from 190 direct ElevenLabs calls (83 list entries), 19 extras",
+   "cost": "fal 7.77 USD (Day 1 batch, incl. music and voice) and 4.87 USD (batch 2, incl. music and voice); ElevenLabs 3839 credits (190 calls) and 330 credits (19 extras)",
+   "prompts": [
+    {
+     "label": "S_Mon_Hunt_Cry_01",
+     "text": "Giant insect monster hunting its prey, a series of three fast furious raspy shrieks, harsh hoarse prehistoric bird-like cry, horror creature, echo in an empty hall"
+    },
+    {
+     "label": "S_Amb_Chair_Spin",
+     "text": "Office chair spinning around with creaky squeaks and a silly kazoo whoo, playful"
+    },
+    {
+     "label": "S_Item_Duck_Squeak_01",
+     "text": "Rubber duck toy squeezed once quickly, one short sharp squeak, loud in a silent empty room"
+    },
+    {
+     "label": "S_Mon_Spotted_Sting",
+     "text": "Sudden horror stinger when a creature spots you, sharp dissonant string scrape with a low hit and a raspy creature hiss, short, not melodic"
+    }
+   ],
+   "went_wrong": "Footsteps were sliced automatically out of 10 to 12 s walking takes, and one came out only 0.11 s long. When the fal balance ran out on Day 2, the big map's footsteps, forest beds and heartbeat were synthesized from noise and sine waves in numpy instead.",
+   "images": [],
+   "sources": [
+    "assets/audio/generated.md",
+    "docs/tools-used.md",
+    "docs/devlog.md"
+   ]
+  },
+  {
+   "id": "music",
+   "title": "Music",
+   "what_for": "Day loops (calm and dread), night, chase and panic loops, the theme, the day-cleared sting and the final film cue.",
+   "tools": "ACE-Step (fal-ai/ace-step/prompt-to-audio, instrumental, 6 takes per track) for the loops; ElevenLabs Music (fal-ai/elevenlabs/music) for the sting and the final cue; ElevenLabs Speech to Text to check there are no vocals",
+   "count": "8 tracks",
+   "cost": "Included in the fal audio totals (7.77 and 4.87 USD); e.g. S_Mus_Day_Calm_Loop estimated at 0.0136 USD, the sting at 0.06 USD",
+   "prompts": [
+    {
+     "label": "S_Mus_Night_Loop (ACE-Step)",
+     "text": "Instrumental dark ambient score for an empty small town street at night: cold sustained low strings in D minor, a slow distant muted horn that never resolves, faint metallic shimmer like wind on wires, soft tape hiss, no rhythm, no drums, no melody, tense and still, as if something is walking just out of sight"
+    },
+    {
+     "label": "S_Mus_Final_Cut (ElevenLabs Music)",
+     "text": "Instrumental finale cue of a 1960s adventure film: starts with soft solo piano and film projector crackle, builds to a warm triumphant small orchestra with strings, horns and vibraphone, reaches one grand major chord and then stops abruptly, followed by a single slightly off-key organ note, 120 beats per minute, bittersweet, unresolved"
+    },
+    {
+     "label": "S_Mus_Day_Calm_Loop (ACE-Step)",
+     "text": "Instrumental ambient score for an empty old recording studio: very slow low string drone in D, sparse distant celesta notes that appear every ten seconds or so, faint tape hiss, no rhythm, no melody, barely there, holding its breath"
+    }
+   ],
+   "went_wrong": "Six ACE-Step takes of the panic loop came out as surf rock, and ACE-Step stings stopped halfway through the fanfare, so the day-cleared sting and the final cue came from ElevenLabs Music, the only one with a build, a sudden stop and a tail.",
+   "images": [],
+   "sources": [
+    "assets/audio/generated.md"
+   ]
+  }
+ ],
+ "notes": "Images: in this worktree most PNGs under Art/ and production/ are Git LFS pointers (about 130 bytes; the newest crew files are real), with the real files in the main checkout (D:/gra). size_kb is the real size read from the LFS pointer; most are 0.5 to 2 MB, so downscale for the web. All listed paths were checked to exist. The crew character (#227) was merged into this worktree's branch while the research ran (HEAD moved to 466bab2b); its files and docs are included. docs/tools-used.md lists the cinema facade among Rodin models, but Art/Source/Environment/SM_Facade_Cinema/meta.json (#232) says the current facade is a Blender box with a fal elevation image after two failed Meshy tries; an earlier Rodin facade may have existed and been replaced (not verified). Rodin credits are never reported (the Rodin MCP did not return them). Kling cost: 9.10 USD by price list, while the fal balance dropped 11.50 USD. Take Fourteen's FLUX.2 [pro] and cleanup prompts are stored in meta.json in abbreviated form with '...'; the full text is not in the repo. Prompts for the Listener's Day 1 animations were not found. Achievement badges and the Projection Booth UI kit are NOT AI-made (Python written by Claude Code); they are included because the brief expected them. Some HUD icons (book, dollar, mic, padlock, revive, etc.) are procedural too; only 12 icons are AI. Kling prompts in the video table are listed without the shared style suffix that was appended to each. Audio 'prompt' cells are quoted as written in assets/audio/generated.md, including the 'TTS eleven_v4, Bill...' prefix and Polish notes such as 'filtr głośnika' (loudspeaker filter). The studio day-1 count (26 meta.json files) differs from the dev log's '28 studio props'. On Day 1, brand names and a real film title appeared on three reference images that were thrown out; the sources name only the camcorder and the reel. Deliberately left out: the ElevenLabs voice id, Meshy/fal task and request ids, Rodin result URLs and signed Meshy thumbnail URLs found in meta.json."
+}

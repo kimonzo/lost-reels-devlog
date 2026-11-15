@@ -1,0 +1,259 @@
+{
+  "intro": "Short clips from our recorded team calls, in Polish, with English subtitles. Only the three of us speak in them, everyone agreed to be quoted, and swearing stayed on the cutting room floor. The Polish lines are what we said, give or take what the microphone heard.",
+  "clips": [
+    {
+      "id": "notebook",
+      "file": "01-notebook.mp3",
+      "duration": 5.2,
+      "when": "Thu 12 Nov, 09:11 · choosing the game",
+      "title": "The design document",
+      "lines": [
+        {
+          "who": "Kimonzo",
+          "pl": "Mamy notatniczek, mamy notatniczek.",
+          "en": "We've got a little notebook, we've got a little notebook."
+        },
+        {
+          "who": "Bubuś",
+          "pl": "Nie no, ja mam to mniej więcej…",
+          "en": "No, I've got it more or less…"
+        }
+      ],
+      "context": "Ten minutes into the jam, the whole game existed in someone's head and in a chat window. The notebook won."
+    },
+    {
+      "id": "beans",
+      "file": "02-beans.mp3",
+      "duration": 14.8,
+      "when": "Thu 12 Nov, 09:23 · choosing the game",
+      "title": "Rated 13+",
+      "lines": [
+        {
+          "who": "Bubuś",
+          "pl": "…nic nie można już robić na tym świecie. To dzieciaki mają grać w gry typu… skakanie fasolkami przez przeszkody, tak?",
+          "en": "…you can't do anything in this world anymore. So kids are supposed to play games like… jumping beans over obstacles?"
+        }
+      ],
+      "context": "We had just dropped the webcam idea: a game for teenagers should not ask children to share their faces online. Bubuś took it well."
+    },
+    {
+      "id": "devlog",
+      "file": "03-devlog.mp3",
+      "duration": 8.2,
+      "when": "Thu 12 Nov, 09:59 · choosing the game",
+      "title": "A request for the dev log",
+      "lines": [
+        {
+          "who": "Badys",
+          "pl": "Ja proszę o jedno. Niech w dev logu będzie, że Kimo skończył pracę o 16 i dopiero zaczęliśmy pracę.",
+          "en": "I ask for one thing. Put it in the dev log that Kimo finished his day job at 4 pm and only then did we start working."
+        }
+      ],
+      "context": "Request granted."
+    },
+    {
+      "id": "monster-voice",
+      "file": "04-monster-voice.mp3",
+      "duration": 10.7,
+      "when": "Thu 12 Nov, 10:00 · choosing the game",
+      "title": "The first monster sound",
+      "lines": [
+        {
+          "who": "Bubuś",
+          "pl": "O, na przykład patrz, taki głos będzie potworka, jak będzie blisko. Nie przestraszyłbyś się?",
+          "en": "Look, this is the monster's voice when it gets close. Wouldn't that scare you?"
+        },
+        {
+          "who": "Badys",
+          "pl": "Nie, bo ci urwało po sekundzie.",
+          "en": "No, it cut off after a second."
+        }
+      ],
+      "context": "Two days later the monster had 51 short one-shot sounds of its own."
+    },
+    {
+      "id": "golden-duck",
+      "file": "05-golden-duck.mp3",
+      "duration": 14.2,
+      "when": "Thu 12 Nov, 10:11 · choosing the game",
+      "title": "The golden duck is born",
+      "lines": [
+        {
+          "who": "Badys",
+          "pl": "O, gumowa kaczka: jest mały procent szans, że będzie złota. Idealnie, no.",
+          "en": "Oh, the rubber duck: there's a small chance it's golden. Perfect."
+        }
+      ],
+      "context": "The rubber duck does nothing. That was the point. Then it got a small chance of being gold, a quack, and in the end its own cameo."
+    },
+    {
+      "id": "ninety-dollars",
+      "file": "06-ninety-dollars.mp3",
+      "duration": 10.4,
+      "when": "Thu 12 Nov, 10:31 · choosing the game",
+      "title": "The film budget",
+      "lines": [
+        {
+          "who": "Kimonzo",
+          "pl": "Mamy w sumie 90 dolarów, więc na spokojnie 10 minut filmu możemy wygenerować.",
+          "en": "We've got 90 dollars in total, so we can easily generate ten minutes of film."
+        },
+        {
+          "who": "Badys",
+          "pl": "Dobra, wygenerujemy sobie jakieś cutscenki.",
+          "en": "Right, we'll generate some cutscenes."
+        },
+        {
+          "who": "Bubuś",
+          "pl": "O kurde, my tam 15 sekund będziemy potrzebować.",
+          "en": "Oh wow, we'll need about fifteen seconds."
+        }
+      ],
+      "context": "In the end the Director's intro and the reels took fourteen video shots, about 130 seconds of raw footage."
+    },
+    {
+      "id": "nothing-yet",
+      "file": "07-nothing-yet.mp3",
+      "duration": 7.0,
+      "when": "Thu 12 Nov, 11:13 · end of the first call",
+      "title": "Status report",
+      "lines": [
+        {
+          "who": "Kimonzo",
+          "pl": "Co się dzieje?",
+          "en": "What's happening?"
+        },
+        {
+          "who": "Bubuś",
+          "pl": "Na razie nic.",
+          "en": "Nothing so far."
+        },
+        {
+          "who": "Kimonzo",
+          "pl": "Tak, stop.",
+          "en": "Right, stop."
+        }
+      ],
+      "context": "The last words of the call that chose the game. The recording stopped, and the plan was written."
+    },
+    {
+      "id": "hallucinating",
+      "file": "08-hallucinating.mp3",
+      "duration": 4.7,
+      "when": "Thu 12 Nov, 11:45 · reviewing the plan",
+      "title": "On the agent's scope estimate",
+      "lines": [
+        {
+          "who": "Kimonzo",
+          "pl": "On się myli, halucynuje. Oczywiście, że wszystko zrobimy, tylko pytanie…",
+          "en": "It's wrong, it's hallucinating. Of course we'll do everything, the only question is…"
+        }
+      ],
+      "context": "The agent's plan said online co-op would not fit in the jam. It went in on Friday."
+    },
+    {
+      "id": "ant-with-ears",
+      "file": "09-ant-with-ears.mp3",
+      "duration": 8.1,
+      "when": "Thu 12 Nov, 11:50 · reviewing the plan",
+      "title": "Designing the monster",
+      "lines": [
+        {
+          "who": "Bubuś",
+          "pl": "…to może być jakiś insekt, co ma takie małe oczka i duże uszy, i czułka.",
+          "en": "…it could be some insect with tiny little eyes, big ears, and antennae."
+        },
+        {
+          "who": "Badys",
+          "pl": "No na przykład… mrówka. Zgadzam się.",
+          "en": "Like… an ant. I agree."
+        }
+      ],
+      "context": "The first monster, the Listener, came from this minute. Its successor, Take Fourteen, kept the ears and the antennae."
+    },
+    {
+      "id": "stole-my-idea",
+      "file": "10-stole-my-idea.mp3",
+      "duration": 12.3,
+      "when": "Thu 12 Nov, 12:15 · reviewing the plan",
+      "title": "Credit where credit is due",
+      "lines": [
+        {
+          "who": "Bubuś",
+          "pl": "Okradli mnie z mojego pomysłu. AI mi ukradło pomysł.",
+          "en": "They robbed me of my idea. The AI stole my idea."
+        },
+        {
+          "who": "Badys",
+          "pl": "Zabiera ci robotę coraz bardziej.",
+          "en": "It's taking your job, bit by bit."
+        }
+      ],
+      "context": "The agent's plan had credited Bubuś's camera horror idea to Badys."
+    },
+    {
+      "id": "duck-class",
+      "file": "11-duck-class.mp3",
+      "duration": 3.7,
+      "when": "Thu 12 Nov, 12:31 · reviewing the plan",
+      "title": "Reading the feature list",
+      "lines": [
+        {
+          "who": "Badys",
+          "pl": "Kaczka czasem złota. Jest klasa!",
+          "en": "Duck, sometimes golden. Classy!"
+        }
+      ]
+    },
+    {
+      "id": "rookie-cap",
+      "file": "13-rookie-cap.mp3",
+      "duration": 6.7,
+      "when": "Sat 14 Nov, 11:36 · posters and balance",
+      "title": "The team poster",
+      "lines": [
+        {
+          "who": "Kimonzo",
+          "pl": "Jest kolorowa czapeczka dla świeżaka.",
+          "en": "There's a colourful cap for the rookie."
+        },
+        {
+          "who": "Badys",
+          "pl": "Kolorowa czapeczka, właśnie o to chodziło, że dla świeżaka.",
+          "en": "The colourful cap, exactly, that was the idea: for the rookie."
+        }
+      ],
+      "context": "Picking our own picture for the easter-egg poster in the game."
+    },
+    {
+      "id": "tuvalu",
+      "file": "14-tuvalu.mp3",
+      "duration": 9.4,
+      "when": "Sat 14 Nov, 13:21 · the rc-1311h playtest",
+      "title": "Localisation plans",
+      "lines": [
+        {
+          "who": "Badys",
+          "pl": "Tak będzie każdy język świata. Nawet Tuwalu.",
+          "en": "At this rate it'll be every language in the world. Even Tuvaluan."
+        }
+      ],
+      "context": "kimonzo had just started the Polish translation."
+    },
+    {
+      "id": "quantity",
+      "file": "15-quantity.mp3",
+      "duration": 6.8,
+      "when": "Sat 14 Nov, 13:21 · the rc-1311h playtest",
+      "title": "Our production philosophy",
+      "lines": [
+        {
+          "who": "Badys",
+          "pl": "Liczy się ilość, a nie jakość.",
+          "en": "Quantity over quality."
+        }
+      ],
+      "context": "He was joking. Mostly. That morning sixteen audit agents had read every corner of the game."
+    }
+  ]
+}
